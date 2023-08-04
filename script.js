@@ -1,12 +1,34 @@
+function populateBoard(size){
 let board = document.querySelector('.board')
+let squares = board.querySelectorAll("div");
+squares.forEach((div) => div.remove());
 
-//Make 16 cols/rows, and each col/row will have a width of 1/16 of the container
-board.style.gridTemplateColumns = 'repeat(16, 1fr)'
-board.style.gridTemplateRows = 'repeat(16, 1fr)'
+board.style.gridTemplateColumns = `repeat(${size}, 1fr)`
+board.style.gridTemplateRows = `repeat(${size}, 1fr)`
 
-//for loop to make all of the divs;
-for(let i = 0; i < 256; i++){
+// For loop to make divs;
+let amount = size * size;
+for(let i = 0; i < amount; i++){
    let square = document.createElement('div')
-    square.style.backgroundColor = 'blue'
+   square.addEventListener("mouseover", () => { 
+    square.style.backgroundColor = "black";
+   });
+    square.style.backgroundColor = 'white'
     board.insertAdjacentElement("beforeend", square)
 }
+
+}
+populateBoard(16);
+
+// Changes the size of the board/grid accordingly to user input
+function changeSize(input){
+    populateBoard(input);
+
+    // To validate user input
+    if(input >=2 || input <= 100){
+        populateBoard(input);
+    } else {
+        console.log("too many squares")
+    }
+}
+
